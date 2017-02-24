@@ -21,10 +21,11 @@ javascript, html5, css3
 - ukázka asyncrnně zpracovávaných fcí, ale s callbackem až po dokončení všech těchto fcí: [updateTables() v db.js](/db.js)
 
 ### JavaScript OOP - objekt Promise<a name="a3"></a>
-- [Par ukazek z Promises.js](/Promises.js)
-- [Google Developers](https://developers.google.com/web/fundamentals/getting-started/primers/promises)
-- [Mozilla Developers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-- [exploringjs](http://exploringjs.com/es6/ch_promises.html)
+<ul>
+<li>[Par ukazek z Promises.js](/Promises.js)</li>
+<li>[Google Developers](https://developers.google.com/web/fundamentals/getting-started/primers/promises)</li>
+<li>[Mozilla Developers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)</li>
+<li>[exploringjs](http://exploringjs.com/es6/ch_promises.html)</li>
 
 <li>Issues with jQuery Promises:
 <ul>
@@ -48,7 +49,7 @@ javascript, html5, css3
 <ul>
 <li><a href="http://www.html5rocks.com/en/tutorials/service-worker/introduction/">Service Worker API</a></li>
 <li><a href="https://davidwalsh.name/fetch">Fetch API</a></li>
-</ul></li>
+</ul></li></ul>
 
 ## Dle tříd<a name="b"></a>
 
