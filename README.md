@@ -22,10 +22,10 @@ javascript, html5, css3
 
 ### JavaScript OOP - objekt Promise<a name="a3"></a>
 <ul>
-<li>[Par ukazek z Promises.js](/Promises.js)</li>
-<li>[Google Developers](https://developers.google.com/web/fundamentals/getting-started/primers/promises)</li>
-<li>[Mozilla Developers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)</li>
-<li>[exploringjs](http://exploringjs.com/es6/ch_promises.html)</li>
+<li><a href="/Promises.js" target="_blank">Par ukazek z Promises.js</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises" target="_blank">Google Developers</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Mozilla Developers</a></li>
+<li><a href="http://exploringjs.com/es6/ch_promises.html" target="_blank">exploringjs</a></li>
 
 <li>Issues with jQuery Promises:
 <ul>
