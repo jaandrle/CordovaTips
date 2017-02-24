@@ -49,7 +49,9 @@ javascript, html5, css3
 <ul>
 <li><a href="http://www.html5rocks.com/en/tutorials/service-worker/introduction/">Service Worker API</a></li>
 <li><a href="https://davidwalsh.name/fetch">Fetch API</a></li>
-</ul></li></ul>
+</ul></li>
+<li>Fetch API: <a href="https://davidwalsh.name/fetch" target="_blank">https://davidwalsh.name/fetch</a></li>
+</ul>
 
 ## Dle tříd<a name="b"></a>
 
