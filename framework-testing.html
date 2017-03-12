@@ -6,30 +6,60 @@
 </head>
 <body>
 
-    <p data-action="prom-test"></p>
-    <p data-action="prom-test2"></p>
-    <ul data-action="cyclearray-testpole" data-co="li-span"></ul>
+    <p data-action="var-test"></p>
+    <p data-action="var-test2"></p>
+    <div data-action="arr-testpole" data-row="p-span" data-rowdata='[{"attr":1},{"text":0}]'></div>
+    <ul data-action="arr-testpole" data-row="li-span" data-rowdata='[{"attr":1},{"text":0}]'></ul>
     <p id="test" data-action="fce-pokusna"></p>
 
     <script>
-        var $$= {"test": "Pokusne vypsani","test2": "Pokusne vypsani 2",
-        "testpole": ["ahoj1", "ahoj2", "ahoj3"], "pokusna": function(){document.getElementById("test").innerHTML= "Ahoj";}};
+        var $$= {"test": "Pokusne vypsani",
+                "test2": "Pokusne vypsani 2",
+                "testpole": [
+                    ["ahoj1", "neahoj1"],
+                    ["ahoj2", "neahoj2"],
+                    ["ahoj3", "neahoj3"]
+                ],
+                "pokusna": function(){
+                    document.getElementById("test").innerHTML= "Ahoj";
+                    }
+                };
         function $(selector) {return document.querySelectorAll(selector);}
         var zpracuj= $("[data-action]");
         for(el of zpracuj){
             var action= el.dataset.action.split("-");
             switch(action[0]){
-                case "prom":
+                case "var":
                     el.innerHTML= $$[action[1]];
                 break;
-                case "cyclearray":
+                case "arr":
                     var kam= el.innerHTML;
                     el.innerHTML= "";
                     var odkud= action[1];
-                    var co= el.dataset.co.split("-");
-                    for(radek of $$[odkud]){
-                        el.innerHTML+= "<"+co[0]+"><"+co[1]+">"+radek+"</"+co[1]+"></"+co[0]+">";
+                    var cols= el.dataset.row.split("-");
+                    var cols_L= cols.length;
+                    var cols_data= JSON.parse(el.dataset.rowdata);
+
+                    var i, v, t="";
+                    for(row_arr of $$[odkud]){
+                        i= 0;
+                        v= cols[i]
+                        t+= "<"+v;
+                        if(typeof cols_data[i].attr !== "undefined") t+= " data-attr='"+row_arr[cols_data[i].attr]+"'";
+                        t+= ">";
+                        i++;
+                        while(i<cols_L){
+                            v= cols[i];
+                            t+= "<"+v;
+                            if(typeof cols_data[i].attr !== "undefined") t+= " data-attr='"+row_arr[cols_data[i].attr]+"'";
+                            t+= ">";
+                            if(typeof cols_data[i].text !== "undefined") t+= row_arr[cols_data[i].text];
+                            t+= "</"+v+">";
+                            i++;
+                        }
+                        t+= "</"+cols[0]+">";
                     }
+                    el.innerHTML= t;
                 break;
                 case "fce":
                     $$[action[1]]();
