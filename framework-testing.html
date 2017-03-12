@@ -11,8 +11,20 @@
     <div data-action="arr-testpole" data-row="p-span" data-rowdata='[{"attr":1},{"text":0}]'></div>
     <ul data-action="arr-testpole" data-row="li-span" data-rowdata='[{"attr":1},{"text":0}]'></ul>
     <p id="test" data-action="fce-pokusna"></p>
+    <p data-action="if-jedna_mensi_dva"><span>if</span></p>
+    <p data-pokusnyif="else"><span>else</span></p>
 
     <script>
+        Element.prototype.remove = function() {
+            this.parentElement.removeChild(this);
+        }
+        NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+            for(var i = this.length - 1; i >= 0; i--) {
+                if(this[i] && this[i].parentElement) {
+                    this[i].parentElement.removeChild(this[i]);
+                }
+            }
+        }
         var $$= {"test": "Pokusne vypsani",
                 "test2": "Pokusne vypsani 2",
                 "testpole": [
@@ -22,7 +34,8 @@
                 ],
                 "pokusna": function(){
                     document.getElementById("test").innerHTML= "Ahoj";
-                    }
+                    },
+                "pokusnyif": 1>2,
                 };
         function $(selector) {return document.querySelectorAll(selector);}
         var zpracuj= $("[data-action]");
@@ -63,6 +76,10 @@
                 break;
                 case "fce":
                     $$[action[1]]();
+                break;
+                case "if":
+                    if($$[action[1]]) $("[data-"+action[1]+"]").remove();
+                    else el.remove();
                 break;
             }
         }
