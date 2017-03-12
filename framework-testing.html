@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Framework test</title>
+</head>
+<body>
+
+    <p data-action="prom-test"></p>
+    <p data-action="prom-test2"></p>
+    <ul data-action="cyclearray-testpole" data-co="li-span"></ul>
+    <p id="test" data-action="fce-pokusna"></p>
+
+    <script>
+        var $$= {"test": "Pokusne vypsani","test2": "Pokusne vypsani 2",
+        "testpole": ["ahoj1", "ahoj2", "ahoj3"], "pokusna": function(){document.getElementById("test").innerHTML= "Ahoj";}};
+        function $(selector) {return document.querySelectorAll(selector);}
+        var zpracuj= $("[data-action]");
+        for(el of zpracuj){
+            var action= el.dataset.action.split("-");
+            switch(action[0]){
+                case "prom":
+                    el.innerHTML= $$[action[1]];
+                break;
+                case "cyclearray":
+                    var kam= el.innerHTML;
+                    el.innerHTML= "";
+                    var odkud= action[1];
+                    var co= el.dataset.co.split("-");
+                    for(radek of $$[odkud]){
+                        el.innerHTML+= "<"+co[0]+"><"+co[1]+">"+radek+"</"+co[1]+"></"+co[0]+">";
+                    }
+                break;
+                case "fce":
+                    $$[action[1]]();
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
