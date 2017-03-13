@@ -11,8 +11,8 @@
     <div data-action="arr-testpole" data-row="p-span" data-rowdata='[{"attr":1},{"text":0}]'></div>
     <ul data-action="arr-testpole" data-row="li-span" data-rowdata='[{"attr":1},{"text":0}]'></ul>
     <p id="test" data-action="fce-pokusna"></p>
-    <p data-action="if-jedna_mensi_dva"><span>if</span></p>
-    <p data-pokusnyif="else"><span>else</span></p>
+    <p data-action="if-pokusnyif"><span>if</span></p>
+    <p data-if-pokusnyif="else"><span>else</span></p>
 
     <script>
         Element.prototype.remove = function() {
@@ -78,7 +78,7 @@
                     $$[action[1]]();
                 break;
                 case "if":
-                    if($$[action[1]]) $("[data-"+action[1]+"]").remove();
+                    if($$[action[1]]) $("[data-if-"+action[1]+"]").remove();
                     else el.remove();
                 break;
             }
