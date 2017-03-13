@@ -35,7 +35,7 @@
                 "pokusna": function(){
                     document.getElementById("test").innerHTML= "Ahoj";
                     },
-                "pokusnyif": 1>2,
+                "pokusnyif": 1<2,
                 };
         function $(selector) {return document.querySelectorAll(selector);}
         for(el of $("[data-action]")){
@@ -51,7 +51,6 @@
                     var cols= el.dataset.row.split("-");
                     var cols_L= cols.length;
                     var cols_data= JSON.parse(el.dataset.rowdata);
-
                     var i, v, t="";
                     for(row_arr of $$[odkud]){
                         i= 0;
@@ -77,8 +76,8 @@
                     $$[action[1]]();
                 break;
                 case "if":
-                    if($$[action[1]]) $("[data-if-"+action[1]+"]").remove();
-                    else el.remove();
+                    if($$[action[1]]) $("[data-if-"+action[1]+"='else']")[0].style.display= "none";
+                    else el.style.display= "none";
                 break;
             }
         }
