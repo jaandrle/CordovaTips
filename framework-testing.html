@@ -38,8 +38,7 @@
                 "pokusnyif": 1>2,
                 };
         function $(selector) {return document.querySelectorAll(selector);}
-        var zpracuj= $("[data-action]");
-        for(el of zpracuj){
+        for(el of $("[data-action]")){
             var action= el.dataset.action.split("-");
             switch(action[0]){
                 case "var":
