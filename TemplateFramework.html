@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Template framework test</title>
+</head>
+<body>
+
+    <p data-cmd="var-test"></p>
+    <p data-cmd="var-test2"></p>
+    <div data-cmd="arr-testarr" data-row="p-span" data-ins='{"attr":1},{"text":0}'></div>
+    <ul data-cmd="arr-testarr" data-row="li-span" data-ins='{"attr":0},{"text":1}'></ul>
+    <p id="test" data-cmd="fun-testfunction"></p>
+    <p data-cmd="if-testcond"><span>if</span></p>
+    <p data-if-testcond="else"><span>else</span></p>
+
+    <script>
+        Element.prototype.remove = function() {
+            this.parentElement.removeChild(this);
+        }
+        NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+            for(var i = this.length - 1; i >= 0; i--) {
+                if(this[i] && this[i].parentElement) {
+                    this[i].parentElement.removeChild(this[i]);
+                }
+            }
+        }
+
+        var test= "Text - 1 - txeT",
+            test2= "Text - 2 - txeT";
+        var testarr= [
+                    ["row1col1", "row1col2"],
+                    ["row2col1", "row2col2"],
+                    ["row3col1", "row3col2"]
+            ];
+        function testfunction(){
+            document.getElementById("test").innerHTML= "Hello";
+        }
+        var cond={
+            testcond: 1<2,
+        };
+        
+        
+        function $(selector) {return document.querySelectorAll(selector);}
+        for(el of $("[data-cmd]")){
+            var action= el.dataset.cmd.split("-");
+            switch(action[0]){
+                case "var":
+                    el.innerHTML= window[action[1]];
+                break;
+                case "arr":
+                    el.innerHTML= "";
+                    var cols= el.dataset.row.split("-"),
+                        cols_L= cols.length,
+                        cols_data= JSON.parse("["+el.dataset.ins+"]");
+                    var i, v, t=""; //iteration, value, temp
+                    for(row_arr of window[action[1]]){
+                        i= 0; v= cols[i]; t+= "<"+v;
+                        if(typeof cols_data[i].attr !== "undefined") t+= " data-attr='"+row_arr[cols_data[i].attr]+"'";
+                        t+= ">";
+                        i++;
+                        while(i<cols_L){
+                            v= cols[i]; t+= "<"+v;
+                            if(typeof cols_data[i].attr !== "undefined") t+= " data-attr='"+row_arr[cols_data[i].attr]+"'";
+                            t+= ">";
+                            if(typeof cols_data[i].text !== "undefined") t+= row_arr[cols_data[i].text];
+                            t+= "</"+v+">";
+                            i++;
+                        }
+                        t+= "</"+cols[0]+">";
+                    }
+                    el.innerHTML= t;
+                break;
+                case "fun":
+                    window[action[1]]();
+                break;
+                case "if":
+                    if(cond[action[1]]) $("[data-if-"+action[1]+"='else']")[0].style.display= "none";
+                    else el.style.display= "none";
+                break;
+            }
+        }
+    </script>
+</body>
+</html>
