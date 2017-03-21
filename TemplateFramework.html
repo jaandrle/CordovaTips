@@ -8,11 +8,15 @@
 
     <p data-cmd="var-test"></p>
     <p data-cmd="var-test2"></p>
-    <div data-cmd="arr-testarr" data-row="p-span" data-ins='{"attr":1},{"text":0}'></div>
-    <ul data-cmd="arr-testarr" data-row="li-span" data-ins='{"attr":0},{"text":1}'></ul>
     <p id="test" data-cmd="fun-testfunction"></p>
     <p data-cmd="if-testcond"><span>if</span></p>
     <p data-if-testcond="else"><span>else</span></p>
+    <ul data-cmd="arr-testarr">
+        <template>
+            <li data-addattr="0"><span data-addtext="1"></span><br/><span data-cmd="var-test"></span></li>
+            <li data-addattr="1"><span data-addtext="0"></span><br/><span data-cmd="var-test2"></span></li>
+        </template>
+    </ul>
 
     <script>
         var test= "Text - 1 - txeT",
@@ -29,46 +33,37 @@
             testcond: 1<2,
         };
         
-        
-        function $(selector) {return document.querySelectorAll(selector);}
-        for(el of $("[data-cmd]")){
-            var action= el.dataset.cmd.split("-");
-            switch(action[0]){
-                case "var":
-                    el.innerHTML= window[action[1]];
-                break;
-                case "arr":
-                    el.innerHTML= "";
-                    var cols= el.dataset.row.split("-"),
-                        cols_L= cols.length,
-                        cols_data= JSON.parse("["+el.dataset.ins+"]");
-                    var i, v, t=""; //iteration, value, temp
-                    for(row_arr of window[action[1]]){
-                        i= 0; v= cols[i]; t+= "<"+v;
-                        if(typeof cols_data[i].attr !== "undefined") t+= " data-attr='"+row_arr[cols_data[i].attr]+"'";
-                        t+= ">";
-                        i++;
-                        while(i<cols_L){
-                            v= cols[i]; t+= "<"+v;
-                            if(typeof cols_data[i].attr !== "undefined") t+= " data-attr='"+row_arr[cols_data[i].attr]+"'";
-                            t+= ">";
-                            if(typeof cols_data[i].text !== "undefined") t+= row_arr[cols_data[i].text];
-                            t+= "</"+v+">";
-                            i++;
+        function parsehtml(elements){
+            for(el of elements){
+                var action= el.dataset.cmd.split("-");
+                switch(action[0]){
+                    case "var":
+                        el.innerHTML= window[action[1]];
+                    break;
+                    case "fun":
+                        window[action[1]]();
+                    break;
+                    case "if":
+                        if(cond[action[1]]) document.querySelectorAll("[data-if-"+action[1]+"='else']")[0].style.display= "none";
+                        else el.style.display= "none";
+                    break;
+                    case "arr":
+                        var template= el.querySelector('template');
+                        var add_text, add_attr;
+                        for(row_arr of window[action[1]]){
+                            var clone= template.content.cloneNode(true);
+                            add_text= clone.querySelectorAll('[data-addtext]');
+                            add_attr= clone.querySelectorAll('[data-addattr]');
+                            for(add_text_i of add_text) add_text_i.textContent= row_arr[add_text_i.dataset.addtext];
+                            for(add_attr_i of add_attr) add_attr_i.dataset.outparam= row_arr[add_attr_i.dataset.addattr];
+                            el.appendChild(clone);
                         }
-                        t+= "</"+cols[0]+">";
-                    }
-                    el.innerHTML= t;
-                break;
-                case "fun":
-                    window[action[1]]();
-                break;
-                case "if":
-                    if(cond[action[1]]) $("[data-if-"+action[1]+"='else']")[0].style.display= "none";
-                    else el.style.display= "none";
-                break;
+                        parsehtml(el.querySelectorAll("[data-cmd]"));
+                    break;
+                }
             }
         }
+        parsehtml(document.querySelectorAll("[data-cmd]"));
     </script>
 </body>
 </html>
