@@ -32,3 +32,35 @@ function DOMready() {
 console.log("prvni vypis");
 DOMready().then(console.log("druhy vypis"));
 console.log("treti vypis");
+
+// Fce .map a .all
+//  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+//  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+
+// .map: paralerni volani jedne casti kodu bez zachovani poradi
+window.addEventListener('WebComponentsReady', function(){
+    home= document.querySelector('KAM');
+    getJSON("FROM_URL")
+    .then(function(response){
+        response.results.map(function(url){
+            getJSON(url).then(createPlanetThumb);
+        });
+    })
+});
+
+// .all: paralerni volani jedne casti kodu se zachovanim poradi
+window.addEventListener('WebComponentsReady', function(){
+    home= document.querySelector('KAM');
+    getJSON("FROM_URL")
+    .then(function(response){
+        return Promise.all(response.results.map(getJSON));
+    })
+    .then(function(arrayOfPlanetData){
+        arrayOfPlanetData.forEach(function(planet){
+            createPlanetThumb(planet);
+        });
+    })
+    .catch(function(error){
+        console.log(error);
+    });
+});
