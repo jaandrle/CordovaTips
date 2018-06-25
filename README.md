@@ -2,7 +2,7 @@
 javascript, html5, css3
 
 ## Obsah
-- [Řešení problémů](./Reseni_chyb.md)
+- [**Řešení problémů**](./Reseni_chyb.md)
 - [Dle funkcionalit](#a)
   - [Internet](#a1)
   - [Asynchronní fce](#a2)
