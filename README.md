@@ -3,6 +3,7 @@ javascript, html5, css3
 
 ## Obsah
 - [**Řešení problémů**](./Reseni_chyb.md)
+- [Ovlivnění statusbaru z HTMLka](./Ovlivnění statusbaru z HTMLka.md)
 - [Dle funkcionalit](#a)
   - [Internet](#a1)
   - [Asynchronní fce](#a2)
